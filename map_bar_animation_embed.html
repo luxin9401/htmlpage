@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>黑颈鹤数量变化 — 地图柱状图动画</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5.5.0/dist/echarts.min.js"></script>
+<style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+        width: 100%;
+        height: 100%;
+        background: #1a1a2e;
+        font-family: 'Microsoft YaHei', 'PingFang SC', sans-serif;
+        overflow: hidden;
+    }
+    #chart-container {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+</head>
+<body>
+<div id="chart-container"></div>
+
+<script>
+(function() {
+    var dom = document.getElementById('chart-container');
+    var chart = echarts.init(dom);
+    var globalMax = 463;
+
+    var yearlyOptions = [{"title": {"text": "2021 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 17, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 13, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 0, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 20, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 0, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 1, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 2, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 0, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 0, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 31, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 0, "#8E44AD"]}]}]}, {"title": {"text": "2022 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 30, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 24, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 0, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 13, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 0, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 3, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 22, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 0, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 0, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 63, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 0, "#8E44AD"]}]}]}, {"title": {"text": "2023 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 55, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 79, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 0, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 81, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 0, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 20, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 14, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 0, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 0, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 123, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 0, "#8E44AD"]}]}]}, {"title": {"text": "2024 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 332, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 138, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 0, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 154, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 10, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 40, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 34, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 1, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 2, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 280, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 0, "#8E44AD"]}]}]}, {"title": {"text": "2025 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 192, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 281, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 2, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 218, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 16, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 43, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 53, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 2, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 0, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 463, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 0, "#8E44AD"]}]}]}, {"title": {"text": "2026 年", "subtext": "黑颈鹤记录数量"}, "series": [{"data": [{"name": "云南省", "value": [102.71, 25.04, 245, "#E74C3C"]}, {"name": "四川省", "value": [104.07, 30.67, 357, "#3498DB"]}, {"name": "陕西省", "value": [108.95, 34.27, 0, "#2ECC71"]}, {"name": "西藏省", "value": [91.11, 29.64, 172, "#F39C12"]}, {"name": "新疆省", "value": [87.62, 43.82, 12, "#9B59B6"]}, {"name": "甘肃省", "value": [103.83, 36.06, 20, "#1ABC9C"]}, {"name": "贵州省", "value": [106.63, 26.65, 90, "#E67E22"]}, {"name": "河南省", "value": [113.66, 34.76, 0, "#2980B9"]}, {"name": "重庆省", "value": [106.55, 29.56, 0, "#27AE60"]}, {"name": "青海省", "value": [101.78, 36.62, 153, "#D35400"]}, {"name": "山西省", "value": [112.55, 37.87, 2, "#8E44AD"]}]}]}];
+    var years = ["2021", "2022", "2023", "2024", "2025", "2026"];
+    var colors = ["#E74C3C", "#3498DB", "#2ECC71", "#F39C12", "#9B59B6", "#1ABC9C", "#E67E22", "#2980B9", "#27AE60", "#D35400", "#8E44AD"];
+
+    function renderMap(geoJson) {
+        echarts.registerMap('china', geoJson);
+
+        var option = {
+            baseOption: {
+                timeline: {
+                    axisType: 'category',
+                    autoPlay: true,
+                    playInterval: 1800,
+                    loop: true,
+                    data: years,
+                    left: '3%',
+                    right: '3%',
+                    bottom: 0,
+                    label: { fontSize: 13, color: '#ccc' },
+                    lineStyle: { color: 'rgba(255,255,255,0.3)' },
+                    checkpointStyle: {
+                        color: '#FF6B6B',
+                        borderColor: '#FF6B6B',
+                        borderWidth: 2,
+                        shadowBlur: 8,
+                        shadowColor: '#FF6B6B'
+                    },
+                    controlStyle: {
+                        color: '#FF6B6B',
+                        borderColor: '#FF6B6B',
+                        borderWidth: 1.5
+                    },
+                    itemStyle: { color: '#aaa' },
+                    emphasis: {
+                        itemStyle: { color: '#fff' },
+                        label: { fontSize: 15, color: '#fff' }
+                    }
+                },
+                geo: {
+                    map: 'china',
+                    roam: false,
+                    center: [104.5, 36.5],
+                    zoom: 1.25,
+                    aspectScale: 0.85,
+                    itemStyle: {
+                        areaColor: '#1e3a5f',
+                        borderColor: 'rgba(100, 180, 255, 0.4)',
+                        borderWidth: 0.8,
+                        shadowBlur: 15,
+                        shadowColor: 'rgba(0, 150, 255, 0.2)'
+                    },
+                    emphasis: {
+                        label: { show: true, color: '#fff', fontSize: 12 },
+                        itemStyle: {
+                            areaColor: '#2a5080',
+                            borderColor: '#64b5f6',
+                            borderWidth: 1.5
+                        }
+                    }
+                },
+                series: [{
+                    type: 'custom',
+                    coordinateSystem: 'geo',
+                    renderItem: function(params, api) {
+                        var lon = api.value(0);
+                        var lat = api.value(1);
+                        var value = api.value(2);
+                        var color = api.value(3);
+                        if (lon == null || lat == null) return null;
+                        var point = api.coord([lon, lat]);
+                        if (!point) return null;
+
+                        var maxBarHeight = 90;
+                        var barHeight = value > 0 ? Math.max((value / globalMax) * maxBarHeight, 6) : 0;
+                        var barWidth = 11;
+                        var radius = 4;
+                        var children = [];
+
+                        children.push({
+                            type: 'circle',
+                            shape: { cx: point[0], cy: point[1], r: radius },
+                            style: { fill: color, stroke: '#fff', lineWidth: 1.5 }
+                        });
+
+                        if (value > 0) {
+                            children.push({
+                                type: 'rect',
+                                shape: { x: point[0] - barWidth / 2, y: point[1] - barHeight - radius, width: barWidth, height: barHeight },
+                                style: { fill: color, stroke: '#fff', lineWidth: 0.5, shadowBlur: 6, shadowColor: 'rgba(0,0,0,0.3)' }
+                            });
+                            children.push({
+                                type: 'text',
+                                style: { text: value.toString(), x: point[0], y: point[1] - barHeight - radius - 4, textAlign: 'center', textVerticalAlign: 'bottom', fill: '#fff', font: 'bold 11px "Microsoft YaHei", sans-serif', textShadowColor: 'rgba(0,0,0,0.6)', textShadowBlur: 3 }
+                            });
+                        }
+
+                        children.push({
+                            type: 'text',
+                            style: { text: api.value(4) || '', x: point[0], y: point[1] + radius + 12, textAlign: 'center', fill: '#ddd', font: '10px "Microsoft YaHei", sans-serif' }
+                        });
+
+                        return { type: 'group', children: children };
+                    },
+                    data: []
+                }]
+            },
+            options: yearlyOptions.map(function(opt) {
+                return {
+                    series: [{
+                        data: opt.series[0].data.map(function(d) {
+                            return { value: d.value };
+                        })
+                    }]
+                };
+            })
+        };
+
+        chart.setOption(option);
+    }
+
+    fetch('https://geo.datav.aliyun.com/areas_v3/bound/100000_full.json')
+        .then(function(resp) { return resp.json(); })
+        .then(renderMap)
+        .catch(function(err) {
+            console.error('地图加载失败:', err);
+            dom.innerHTML = '<p style="color:#fff;text-align:center;padding-top:20%;font-size:18px;">⚠️ 地图数据加载失败，请检查网络连接<br><small style="color:#999;">需要访问 DataV GeoAtlas 加载中国地图</small></p>';
+        });
+
+    window.addEventListener('resize', function() { chart.resize(); });
+})();
+</script>
+</body>
+</html>
